@@ -45,7 +45,7 @@ print(X_train.shape, X_test.shape, y_train.shape, y_test.shape)
 # Train an Isolation Forest model to detect outliers
 from sklearn.ensemble import RandomForestRegressor
 
-rf = RandomForestRegressor(max_depth=2, random_state=100)
+rf = RandomForestRegressor(n_estimators=800, max_depth=40, random_state=50)
 rf.fit(X_train, y_train)
 
 y_random_forest_train = rf.predict(X_train)
@@ -53,4 +53,13 @@ y_random_forest_test = rf.predict(X_test)
 
 # Should print the number of trees (default is 100)
 print(rf.n_estimators)
+
+
+print(f"Training R² score: {rf.score(X_train, y_train):.4f}")
+print(f"Test R² score: {rf.score(X_test, y_test):.4f}")
+
+
+y_pred = rf.predict(X_test[:5])
+print("Predicted:", y_pred)
+print("Actual:", y_test[:5].values)
 
